@@ -1,17 +1,22 @@
 /* CSS Variables for Theme Management */
 :root {
-  /* Light theme colors */
+  /* Modern light theme: custom colors as required */
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
+  --text-primary: #222b36;
+  --text-secondary: #707070;
   --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --button-bg: #1976d2;   /* primary (#1976d2) */
+  --button-text: #fff;
+  --accent: #43a047;
+  --accent-bg: #e9f5ee;
+  --secondary: #ff9800;
+  --tile-hover: #f5fcf7;
 }
 
+
 [data-theme="dark"] {
-  /* Dark theme colors */
+  /* Dark theme colors - not used but keep for fallback */
   --bg-primary: #1a1a1a;
   --bg-secondary: #282c34;
   --text-primary: #ffffff;
@@ -21,84 +26,156 @@
   --button-text: #ffffff;
 }
 
+/* --- TTT APP --- */
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
+  min-height: 100vh;
+  background: var(--bg-primary);
   color: var(--text-primary);
+}
+
+.ttt-main-bg {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ttt-header {
+  padding-top: 32px;
+  text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.ttt-title {
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+  color: var(--primary, #1976d2);
+  background: linear-gradient(90deg, var(--primary, #1976d2) 40%, var(--accent, #43a047) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
 }
 
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+.ttt-center-flex {
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ttt-game-container {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  box-shadow: 0 2px 24px 0 rgba(16,40,77,0.07);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  min-width: 320px;
+  min-height: 440px;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.ttt-status {
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent, #43a047);
+  letter-spacing: 0.5px;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
+.ttt-board {
+  display: grid;
+  grid-template-columns: repeat(3, 65px);
+  grid-template-rows: repeat(3, 65px);
+  gap: 10px;
+  margin-bottom: 2.2rem;
+}
+
+.ttt-square {
+  background: var(--bg-primary);
+  border: 2.5px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--primary, #1976d2);
+  cursor: pointer;
+  height: 65px;
+  width: 65px;
+  box-shadow: 0 2px 6px #00000011;
+  transition: border 0.18s, background 0.2s;
+  outline: none;
+  vertical-align: middle;
+  user-select: none;
+}
+.ttt-square:hover:not(:disabled):not([aria-label="Empty square"]) {
+  background: var(--tile-hover);
+}
+.ttt-square:disabled,
+.ttt-square[disabled] {
+  color: var(--secondary, #ff9800);
+  border: 2.5px dashed var(--border-color);
+  background: var(--accent-bg);
+  cursor: default;
+  opacity: 0.8;
+}
+
+.ttt-restart-btn {
+  background: var(--primary, #1976d2);
+  color: var(--button-text, #fff);
   border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
+  padding: 0.8rem 2.1rem;
+  border-radius: 9px;
+  font-size: 1.1rem;
+  box-shadow: 0 1px 8px #00000010;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s, transform 0.18s;
+  margin-top: 0.2rem;
+  letter-spacing: 0.25px;
 }
-
-.theme-toggle:hover {
+.ttt-restart-btn:hover {
+  background: var(--accent, #43a047);
+  color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+}
+.ttt-restart-btn:active {
+  background: var(--secondary, #ff9800);
+  color: #fff;
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.ttt-footer {
+  padding: 15px 0;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  background: transparent;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 600px) {
+  .ttt-game-container {
+    padding: 1.2rem 0.3rem 1.1rem 0.3rem;
+    min-width: 0;
   }
-  to {
-    transform: rotate(360deg);
+  .ttt-board {
+    gap: 6px;
+    grid-template-columns: repeat(3, 42vw);
+    grid-template-rows: repeat(3, 42vw);
+    max-width: 98vw;
+    margin-bottom: 1.0rem;
   }
-}
-
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+  .ttt-square {
+    min-width: 0;
+    width: 42vw;
+    height: 42vw;
+    font-size: 2.5rem;
+  }
+  .ttt-status {
+    font-size: 1rem;
+  }
+  .ttt-title {
+    font-size: 1.4rem;
+  }
+  .ttt-footer {
+    font-size: 0.85rem;
   }
 }
