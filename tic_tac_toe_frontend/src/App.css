@@ -151,6 +151,56 @@
   background: transparent;
 }
 
+/* --- SNAKE & LADDER --- */
+.snl-game-container {
+  box-sizing: border-box;
+}
+
+.snl-board-outer {
+  width: 100%;
+  max-width: 415px;
+  margin: 0 auto 18px auto;
+  background: #fff;
+  border-radius: 15px;
+  overflow: clip;
+}
+
+.snl-board-row {
+  width: 100%;
+  display: flex;
+}
+
+.snl-square {
+  width: 10%;
+  aspect-ratio: 1/1;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  position: relative;
+  padding: 1.8vw 0.5vw 0.2vw 0.5vw;
+  box-sizing: border-box;
+}
+@media (max-width: 900px) {
+  .snl-board-outer {
+    max-width: 96vw;
+  }
+}
+@media (max-width: 600px) {
+  .snl-board-outer {
+    max-width: 99vw;
+  }
+  .snl-square {
+    font-size: 10px;
+    padding: 0.3vw 0.2vw 0.1vw 0.2vw;
+  }
+}
+
+.snl-status {
+  font-family: inherit;
+}
+
+.tab-btn {
+  /* Common tab button styling already applied in js inline, override focus only here if needed */
+}
 @media (max-width: 600px) {
   .ttt-game-container {
     padding: 1.2rem 0.3rem 1.1rem 0.3rem;
